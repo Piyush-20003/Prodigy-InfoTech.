@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./stopwatch.css">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <h1 style="color: antiquewhite;">Stopwatch :</h1>
+    <div id="timer"></div>
+    <div class="align">
+        <button onclick="pause()" class="buttons"> <i class="fa-solid fa-pause"></i> / <i class="fa-solid fa-play"></i></button>
+        <button onclick="resettime()" class="buttons"> <i class="fa-solid fa-stop"></i></button>
+        <button onclick="flagging()" class="buttons"><i class="fa-solid fa-flag"></i></button>
+    </div>
+    <h1><div id="flag"></div></h1>
+    
+    <script>
+        var timerElement = document.getElementById('timer')
+        var flagElement = document.getElementById('flag')
+        var second = 0
+        var flagcount = 0
+        var intervalid
+        var ispause = false
+        function displaytime(){
+            second++
+            const minute = Math.floor(second/60)
+            const seconds = Math.floor(second%60)
+            timerElement.textContent = `${String(minute).padStart(2,'0')} : ${String(seconds).padStart(2,'0')}`
+        }
+        function pause(){
+            ispause = !ispause
+            if(ispause){
+                clearInterval(intervalid)
+            }else{
+                intervalid=setInterval(displaytime,1000)
+            }
+        }
+        function resettime(){
+            second=0
+            timerElement.textContent = '00:00'
+        }
+        function flagging(){
+            flagcount++
+            flagElement.innerHTML += `${flagcount}. Flagged at ${timerElement.textContent}  <br> <br>`
+        }
+        intervalid = setInterval(displaytime,1000)
+
+    </script>
+</body>
+</html>
